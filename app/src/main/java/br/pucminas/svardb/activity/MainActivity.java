@@ -1,10 +1,11 @@
-package br.pucminas.svardb;
+package br.pucminas.svardb.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import br.pucminas.svardb.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,6 +1,7 @@
-package br.pucminas.svardb;
+package br.pucminas.svardb.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import br.pucminas.svardb.R;
 
 import android.os.Bundle;
 
