@@ -1,5 +1,7 @@
 package br.pucminas.svardb.activity.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import br.pucminas.svardb.R;
+import br.pucminas.svardb.activity.SensorDetailsActivity;
 import br.pucminas.svardb.model.Sensor;
 import lombok.AllArgsConstructor;
 
@@ -25,7 +28,7 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.SensorView
     @Override
     public SensorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_item_list_sensors, parent, false);
+                .inflate(R.layout.cardview_list_sensors, parent, false);
         return new SensorViewHolder(view);
     }
 
@@ -36,6 +39,14 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.SensorView
         holder.name.setText(sensors.get(position).getName());
         holder.value.setText(sensorValue + "%");
 
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, SensorDetailsActivity.class);
+                context.startActivity(intent);
+            }
+        });
         if (sensorValue >= 60) {
             holder.layout.setBackgroundColor(Color.parseColor("#FF0000"));
         }

@@ -4,9 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/cardView"
-    app:cardElevation="10dp"
-    >
+    android:id="@+id/cardView_list_sensors"
+    app:cardElevation="10dp">
         <LinearLayout
             android:id="@+id/layout_cardview"
             android:orientation="vertical"

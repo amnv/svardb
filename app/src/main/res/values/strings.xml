@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Svardb</string>
+    <string name="list_sensors_info">Valores de humidade a partir de 60% são considerados de alerta</string>
 </resources>
