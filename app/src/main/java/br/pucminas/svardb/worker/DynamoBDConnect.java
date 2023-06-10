@@ -23,7 +23,7 @@ public class DynamoBDConnect {
     private final AmazonDynamoDBClient client;
     private final Table dbTable;
 
-    public static DynamoBDConnect getInstance(Context context){
+    public static DynamoBDConnect getInstance(Context context) {
         if (dynamoDB == null) {
             dynamoDB = new DynamoBDConnect(context);
         }

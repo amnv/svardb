@@ -5,8 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -14,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import br.pucminas.svardb.R;
 import br.pucminas.svardb.model.Sensor;
-import lombok.AllArgsConstructor;
 
 public class SensorDetailsAdapter extends RecyclerView.Adapter<SensorDetailsAdapter.SensorDetailsHolder> {
 
@@ -51,7 +48,7 @@ public class SensorDetailsAdapter extends RecyclerView.Adapter<SensorDetailsAdap
 
         public SensorDetailsHolder(@NonNull View itemView) {
             super(itemView);
-            value  = itemView.findViewById(R.id.txt_sensor_details_value);
+            value = itemView.findViewById(R.id.txt_sensor_details_value);
             date = itemView.findViewById(R.id.txt_sensor_details_date);
         }
     }

@@ -2,7 +2,6 @@ package br.pucminas.svardb.activity;
 
 import android.os.Bundle;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.pucminas.svardb.R;
-import br.pucminas.svardb.activity.adapter.SensorAdapter;
 import br.pucminas.svardb.activity.adapter.SensorDetailsAdapter;
 import br.pucminas.svardb.model.Sensor;
 import br.pucminas.svardb.util.Contract;

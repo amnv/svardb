@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import br.pucminas.svardb.R;
 import br.pucminas.svardb.activity.SensorDetailsActivity;
 import br.pucminas.svardb.model.Sensor;
@@ -76,11 +75,12 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.SensorView
         return sensorsMostRecent.size();
     }
 
-    public static class SensorViewHolder  extends RecyclerView.ViewHolder {
+    public static class SensorViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView value;
 
         private LinearLayout layout;
+
         public SensorViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txt_sensor_name);
