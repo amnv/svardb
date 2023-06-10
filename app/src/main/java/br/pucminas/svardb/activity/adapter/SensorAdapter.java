@@ -19,10 +19,13 @@ import br.pucminas.svardb.activity.SensorDetailsActivity;
 import br.pucminas.svardb.model.Sensor;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.SensorViewHolder> {
 
-    private List<Sensor> sensors;
+    private final List<Sensor> sensors;
+
+    public SensorAdapter(List<Sensor> sensors) {
+        this.sensors = sensors;
+    }
 
     @NonNull
     @Override
