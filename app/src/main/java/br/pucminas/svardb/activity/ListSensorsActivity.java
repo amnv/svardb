@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,23 +25,19 @@ import br.pucminas.svardb.worker.DynamoBDConnect;
 
 public class ListSensorsActivity extends AppCompatActivity {
 
+    private List<Sensor> sensors;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_sensors);
 
-//        List<Sensor> sensors = List.of(new Sensor("sensor 1", 30L, LocalDateTime.now()),
-//                new Sensor("sensor 2", 40L, LocalDateTime.now()),
-//                new Sensor("sensor 3", 50L, LocalDateTime.now()),
-//                new Sensor("sensor 4", 60L, LocalDateTime.now()),
-//                new Sensor("sensor 5", 70L, LocalDateTime.now()));
-
         new GetAllItemsAsyncTask().execute();
     }
 
     private void populateMemoList(List<Map<String, AttributeValue>> documents) {
-        List<Sensor> sensors = new ArrayList<>();
-        for (Map<String, AttributeValue> document: documents) {
+        sensors = new ArrayList<>();
+        for (Map<String, AttributeValue> document : documents) {
             try {
                 Sensor sensor = new Sensor(String.format("Sensor %s", document.get("device_id").getS()),
                         Long.parseLong(document.get("device_data").getM().get("humidity").getN()),
@@ -54,24 +51,44 @@ public class ListSensorsActivity extends AppCompatActivity {
 
         RecyclerView view = findViewById(R.id.rv_list_sensors);
         view.setLayoutManager(new LinearLayoutManager(this));
-        view.setAdapter(new SensorAdapter(sensors));
+        view.setAdapter(new SensorAdapter(mostRecentToEachIdList(sensors)));
     }
 
+    private List<Sensor> mostRecentToEachIdList(List<Sensor> sensors) {
+        Map<String, LocalDateTime> mostRecentTime = new HashMap<>();
+        Map<String, Sensor> mostRecentSensors = new HashMap<>();
 
-    private class GetAllItemsAsyncTask extends AsyncTask<Void, Void,  List<Map<String, AttributeValue>>> {
-        @Override
-        protected  List<Map<String, AttributeValue>> doInBackground(Void... params) {
-            DynamoBDConnect databaseAccess = DynamoBDConnect.getInstance(ListSensorsActivity.this.getBaseContext());
-             return databaseAccess.getAllMemos();
-        }
-
-        @Override
-        protected void onPostExecute(List<Map<String, AttributeValue>> documents) {
-            if (documents != null && documents.size() > 0) {
-                populateMemoList(documents);
+        for (Sensor sensor : sensors) {
+            if (sensor.getDate() == null) continue;
+            if (mostRecentTime.get(sensor.getName()) != null) {
+                if (mostRecentTime.get(sensor.getName()).isBefore(sensor.getDate())) {
+                    mostRecentTime.put(sensor.getName(), sensor.getDate());
+                    mostRecentSensors.put(sensor.getName(), sensor);
+                }
+            } else {
+                mostRecentTime.put(sensor.getName(), sensor.getDate());
+                mostRecentSensors.put(sensor.getName(), sensor);
             }
         }
+
+            return new ArrayList<>(mostRecentSensors.values());
+        }
+
+
+        private class GetAllItemsAsyncTask extends AsyncTask<Void, Void, List<Map<String, AttributeValue>>> {
+            @Override
+            protected List<Map<String, AttributeValue>> doInBackground(Void... params) {
+                DynamoBDConnect databaseAccess = DynamoBDConnect.getInstance(ListSensorsActivity.this.getBaseContext());
+                return databaseAccess.getAllMemos();
+            }
+
+            @Override
+            protected void onPostExecute(List<Map<String, AttributeValue>> documents) {
+                if (documents != null && documents.size() > 0) {
+                    populateMemoList(documents);
+                }
+            }
+        }
+
+
     }
-
-
-}
