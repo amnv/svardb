@@ -10,3 +10,4 @@
 gradlew*
 /gradle
 .idea/
+/app/src/main/res/values/secrect.xml
