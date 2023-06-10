@@ -1,5 +1,6 @@
 package br.pucminas.svardb.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 
-public class Sensor {
+public class Sensor implements Serializable {
     private String name;
     private double value;
     private LocalDateTime date;
